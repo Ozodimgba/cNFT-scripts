@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "target": "ES2021",          // Specify the ECMAScript target version
+      "module": "CommonJS",        // Specify module code generation
+      "strict": true,              // Enable strict type checking
+      "esModuleInterop": true,     // Enable compatibility with CommonJS modules
+      "skipLibCheck": true,        // Skip type checking of declaration files
+      "forceConsistentCasingInFileNames": true, // Enforce consistent file naming
+      "outDir": "./dist",          // Output directory for compiled files
+      "rootDir": "./",          // Root directory of your source files
+      "declaration": true,         // Generate declaration files (.d.ts)
+      "sourceMap": true,           // Generate source maps for debugging
+      "resolveJsonModule": true    // Enable importing JSON files
+    }
+  }
+  
