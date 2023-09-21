@@ -11,8 +11,9 @@
   "author": "Luc Castera <luc@quicknode.com> (https://github.com/luccastera)",
   "license": "MIT",
   "dependencies": {
+    "@metaplex-foundation/js": "^0.19.5",
     "@metaplex-foundation/mpl-bubblegum": "^0.8.0",
-    "@metaplex-foundation/mpl-token-metadata": "^3.0.0",
+    "@metaplex-foundation/mpl-token-metadata": "^2.12.0",
     "@metaplex-foundation/umi": "^0.8.9",
     "@metaplex-foundation/umi-bundle-defaults": "^0.8.9",
     "@mintee/wrapped-connection": "^0.0.14",

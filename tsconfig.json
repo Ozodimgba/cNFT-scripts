@@ -6,7 +6,9 @@
       "esModuleInterop": true,     // Enable compatibility with CommonJS modules
       "skipLibCheck": true,        // Skip type checking of declaration files
       "forceConsistentCasingInFileNames": true, // Enforce consistent file naming
-      "outDir": "./dist",          // Output directory for compiled files
+      "outDir": "./dist",   
+      "allowJs": true,     
+      "isolatedModules": true,
       "rootDir": "./",          // Root directory of your source files
       "declaration": true,         // Generate declaration files (.d.ts)
       "sourceMap": true,           // Generate source maps for debugging
