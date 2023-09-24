@@ -12,7 +12,7 @@
   less console logging and explanation of what is occurring
 */
 
-import { Keypair, LAMPORTS_PER_SOL, clusterApiUrl } from "@solana/web3.js";
+import { Keypair, LAMPORTS_PER_SOL, PublicKey, clusterApiUrl } from "@solana/web3.js";
 import { ValidDepthSizePair } from "@solana/spl-account-compression";
 import {
   MetadataArgs,
@@ -22,13 +22,13 @@ import {
 import { CreateMetadataAccountArgsV3 } from "@metaplex-foundation/mpl-token-metadata";
 
 // import custom helpers for demos
-import { loadKeypairFromFile, loadOrGenerateKeypair, numberFormatter } from "./lib/helpers";
+import { loadKeypairFromFile, loadOrGenerateKeypair, numberFormatter } from "./mynt/src/lib/helpers";
 
 // import custom helpers to mint compressed NFTs
-import { createCollection, createTree, mintCompressedNFT } from "./lib/compression";
+import { createCollection, createTree, mintCompressedNFT, mintNFTsToMultipleRecipients } from "./mynt/src/lib/compression";
 
 // local import of the connection wrapper, to help with using the ReadApi
-import { WrapperConnection } from "./ReadApi/WrapperConnection";
+import { WrapperConnection } from "./mynt/src/ReadApi/WrapperConnection";
 import { loadWalletKey } from "./utils";
 
 import dotenv from "dotenv";
@@ -45,7 +45,8 @@ let initBalance: number, balance: number;
   const testWallet = loadOrGenerateKeypair("testWallet");
 
   // generate a new keypair for use in this demo (or load it locally from the filesystem when available)
-  const payer = loadWalletKey("mint.json");
+  const payer = loadWalletKey("tree.json");
+  
 
   console.log("Payer address:", payer.publicKey.toBase58());
   console.log("Test wallet address:", testWallet.publicKey.toBase58());
@@ -162,20 +163,22 @@ let initBalance: number, balance: number;
     payer.publicKey,
   );
 
-  // fully mint a single compressed NFT
-  console.log(`Minting a single compressed NFT to ${testWallet.publicKey.toBase58()}...`);
-
-  await mintCompressedNFT(
-    connection,
-    payer,
-    treeKeypair.publicKey,
-    collection.mint,
-    collection.metadataAccount,
-    collection.masterEditionAccount,
-    compressedNFTMetadata,
-    // mint to this specific wallet (in this case, airdrop to `testWallet`)
-    testWallet.publicKey,
-  );
+ const anotherRecipientPublicKey = new PublicKey('Ehg4iYiJv7uoC6nxnX58p4FoN5HPNoyqKhCMJ65eSePk')
+ const yetAnotherRecipientPublicKey = new PublicKey('59RM2TCBLtkKqUzQa8FwesenJX4ZLM7BVVJtkTAy5v5X')
+ // Define the list of recipient addresses
+ const recipientAddresses = [testWallet.publicKey, anotherRecipientPublicKey, yetAnotherRecipientPublicKey];
+  
+ // Mint NFTs to multiple recipients
+ await mintNFTsToMultipleRecipients(
+   connection,
+   payer,
+   treeKeypair.publicKey,
+   collection.mint,
+   collection.metadataAccount,
+   collection.masterEditionAccount,
+   compressedNFTMetadata,
+   recipientAddresses
+ );
 
   //////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////

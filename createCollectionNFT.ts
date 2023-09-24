@@ -130,7 +130,7 @@ export const initCollection = async (
 
 async function main(){
     
-    const keypair = loadWalletKey("mint.json");
+    const keypair = loadWalletKey("my-keypair.json");
     const connection = new Connection("https://api.devnet.solana.com");
     
     initCollection(connection, keypair);
